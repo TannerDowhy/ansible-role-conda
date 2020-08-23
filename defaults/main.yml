@@ -1,0 +1,8 @@
+---
+# defaults file for ansible-role-conda
+
+# The path to the conda util file
+conda_util_file: https://raw.githubusercontent.com/TannerDowhy/Ansible_Pipeline/master/utils/conda.py
+
+# Default name for the conda environment created
+conda_env_name: biolighthouse

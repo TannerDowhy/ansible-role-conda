@@ -1,0 +1,17 @@
+---
+# tasks file for ansible-role-conda
+
+- name: Detect environment
+  set_fact:
+    base_path: "{% if ansible_domain == 'cedar.computecanada.ca' %}{{ ansible_env.HOME }}/scratch{% else %}{{ ansible_env.HOME }}{% endif %}"
+  when: base_path is not defined
+
+- name: Check if conda has been previously installed
+  stat:
+    path: "{{ base_path }}/.biolighthouse/software/conda"
+  register: conda_exists
+
+- include: install-miniconda3.yml
+  when: conda_executable is not defined and conda_exists.stat.exists == False
+
+- include: test-conda.yml

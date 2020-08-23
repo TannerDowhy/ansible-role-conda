@@ -1,0 +1,12 @@
+---
+# handlers file for ansible-role-conda
+
+- name: Remove installer
+  file:
+    state: absent
+    path: "{{ base_path }}/.biolighthouse/software/conda_install.sh"
+
+- name: Remove biol tmp dir
+  file:
+    state: absent
+    path: "/tmp/biol/"

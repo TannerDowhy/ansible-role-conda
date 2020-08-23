@@ -1,0 +1,38 @@
+---
+- name: Detect environment
+  set_fact:
+    base_path: "{% if ansible_domain == 'cedar.computecanada.ca' %}{{ ansible_env.HOME }}/scratch{% else %}{{ ansible_env.HOME }}{% endif %}"
+  when: base_path is not defined
+
+- name: Create /tmp directory
+  file:
+    path: /tmp/biol
+    state: directory
+
+- name: Get util files
+  get_url:
+    url: "{{ conda_util_file }}"
+    dest: /tmp/biol/
+
+- name: Set conda executable variable
+  set_fact:
+    conda_executable: "{{ base_path }}/.biolighthouse/software/conda/bin/conda"
+  when: conda_executable is not defined
+
+# - name: Create a conda environment
+#   conda_create:
+#     name: "{{ conda_env_name }}"
+#     executable: "{{ base_path }}/.biolighthouse/software/conda/bin/conda"
+#   notify: Remove biol tmp dir
+
+# - name: Install python via conda
+#   conda_install:
+#     name: 'python'
+#     version: '2.7.13'
+#     executable: "{{ conda_executable }}"
+#     environment: "{{ conda_env_name }}"
+
+# - name: Put environment activation in .bashrc
+#   lineinfile:
+#     path: "{{ ansible_env.HOME }}/.bashrc"
+#     line: "conda activate {{ conda_env_name }}"
