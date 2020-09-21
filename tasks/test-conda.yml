@@ -9,10 +9,15 @@
     path: /tmp/biol
     state: directory
 
+# - name: Get util files
+#   get_url:
+#     url: "{{ conda_util_file }}"
+#     dest: /tmp/biol/
+
 - name: Get util files
-  get_url:
-    url: "{{ conda_util_file }}"
-    dest: /tmp/biol/
+  copy:
+    src: ../files/conda.py
+    dest: /tmp/biol/conda.py
 
 - name: Set conda executable variable
   set_fact:
