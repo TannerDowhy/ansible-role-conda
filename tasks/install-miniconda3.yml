@@ -16,19 +16,6 @@
     dest: "{{ base_path }}/.biolighthouse/software/conda_install.sh"
     timeout: 1800
     mode: 0777
-  # when: minIT is not defined
-
-# - name: Ensure umask 007
-#   lineinfile:
-#     path: "{{ ansible_env.HOME }}/.bashrc"
-#     line: "umask 007"
-
-# - name: Get the Miniconda3 installer
-#   get_url:
-#     url: https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh
-#     dest: "{{ base_path }}/.biolighthouse/software/conda_install.sh"
-#     timeout: 1800
-#   when: minIT|bool == True
 
 - name: Run the Anaconda3 installer
   shell: "bash {{ base_path }}/.biolighthouse/software/conda_install.sh -u -b -p {{ base_path }}/.biolighthouse/software/conda"
@@ -38,4 +25,3 @@
 
 - name: Initialize conda shell
   command: "{{ base_path }}/.biolighthouse/software/conda/bin/conda init bash"
-  # when: minIT is not defined
